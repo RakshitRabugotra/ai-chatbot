@@ -18,10 +18,8 @@ export default async function Home() {
 function Heading() {
   return (
     <div className="flex flex-col items-center space-y-2">
-      <h1 className="text-3xl font-bold">Generate AI-Powered Images</h1>
-      <p className="text-muted-foreground">
-        Enter a prompt to create a unique image.
-      </p>
+      <h1 className="text-3xl font-bold">AI-Powered Chatbot</h1>
+      <p className="text-muted-foreground">Enter a prompt to get started.</p>
     </div>
   );
 }

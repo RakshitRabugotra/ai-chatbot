@@ -7,7 +7,7 @@ export default function Navbar() {
     <nav className="flex items-center justify-between">
       <Link href="#" className="flex items-center gap-2" prefetch={false}>
         <ImageIcon className="w-6 h-6 text-primary" />
-        <span className="text-lg font-medium">AI Image Generator</span>
+        <span className="text-lg font-medium">AI Chatbot</span>
       </Link>
       <div className="flex items-center gap-4">
         <AuthButton />
