@@ -10,7 +10,7 @@ export default async function Home() {
       )}
     >
       <Heading />
-      <ChatList action="chat" />
+      <ChatList action="image" />
     </div>
   );
 }
