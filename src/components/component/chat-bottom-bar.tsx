@@ -50,17 +50,22 @@ export default function ChatBottomBar({
     console.log({ predefined });
     // Return if the prompt is null
     if (!predefined) return;
-    // Else, set the inner text to it, and submit
-    setPrompt(() => predefined);
-    // Submit
-    console.log("submitting...");
-    handleSubmit();
+
+    const generate = async () => {
+      // Submit
+      console.log("submitting...");
+      await handleSubmit(predefined);
+    };
+
+    generate();
   }, [predefined]);
 
-  const performAction = async () => {
+  const performAction = async (cardPrompt?: string) => {
     if (action === "chat") {
       // Fetch the message from the gemini function in chunks
-      const res = await sendMessage(prompt);
+      const res = await sendMessage(
+        typeof cardPrompt === "undefined" ? prompt : cardPrompt
+      );
       // print text as it comes in
       for await (const chunk of res.stream) {
         const chunkText = chunk.text();
@@ -75,9 +80,12 @@ export default function ChatBottomBar({
   /**
    * Handles the submission of the prompt, and gets the response from the bot
    */
-  const handleSubmit = async () => {
+  const handleSubmit = async (cardPrompt?: string) => {
     console.log({ not: !prompt });
-    if (!prompt || !input.current) return;
+
+    if (!input.current) return;
+    if (!prompt && typeof cardPrompt === "undefined") return;
+
     // Add the previous response to the messages
     setMessages((prev) =>
       response
@@ -104,14 +112,14 @@ export default function ChatBottomBar({
             role: "user",
             name: user?.displayName,
             avatar: user?.photoURL,
-            message: prompt,
+            message: prompt || cardPrompt,
           },
         ] as Message[]
     );
     // Response the previous response
     setResponse(null);
     // Perform the action
-    await performAction();
+    await performAction(cardPrompt);
     // Reset the prompt
     setPrompt("");
   };
@@ -129,23 +137,25 @@ export default function ChatBottomBar({
   };
 
   return (
-    <div className="flex items-center w-full space-x-2">
-      <Input
-        ref={input}
-        value={prompt}
-        onChange={(event) => setPrompt(event.target.value)}
-        onKeyDown={keydownHandler}
-        type="text"
-        placeholder="Enter your image prompt..."
-        className="flex-1 px-4 py-2 text-lg rounded-md border border-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-      />
-      <Button
-        type="submit"
-        className="inline-flex items-center justify-center h-10 px-6 text-sm font-medium text-primary-foreground bg-primary rounded-md shadow transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        onClick={handleSubmit}
-      >
-        Generate
-      </Button>
+    <div className="fixed max-w-screen-md inset-0 top-auto mx-auto p-4 bg-background">
+      <div className="flex items-center w-full space-x-2">
+        <Input
+          ref={input}
+          value={prompt}
+          onChange={(event) => setPrompt(event.target.value)}
+          onKeyDown={keydownHandler}
+          type="text"
+          placeholder="Enter your image prompt..."
+          className="flex-1 px-4 py-2 text-lg rounded-md border border-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+        />
+        <Button
+          type="submit"
+          className="inline-flex items-center justify-center h-10 px-6 text-sm font-medium text-primary-foreground bg-primary rounded-md shadow transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          onClick={() => handleSubmit()}
+        >
+          Generate
+        </Button>
+      </div>
     </div>
   );
 }

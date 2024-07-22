@@ -55,6 +55,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
    */
   const logout = async () => {
     await signOut(auth);
+    window.location.reload();
   };
 
   /**

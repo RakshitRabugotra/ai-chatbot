@@ -52,17 +52,16 @@ export function ChatList({ action }: { action: Action }) {
         response={response}
         messages={messages}
       />
-      <div className="fixed max-w-screen-md inset-0 top-auto mx-auto m-4">
-        <ChatBottomBar
-          predefined={predefined}
-          action={action}
-          images={images}
-          setImages={setImages}
-          setMessages={setMessages}
-          setResponse={setResponse}
-          response={response}
-        />
-      </div>
+
+      <ChatBottomBar
+        predefined={predefined}
+        action={action}
+        images={images}
+        setImages={setImages}
+        setMessages={setMessages}
+        setResponse={setResponse}
+        response={response}
+      />
     </div>
   );
 }
@@ -134,7 +133,7 @@ function PreviousChat({
   return (
     <div
       ref={messagesContainerRef}
-      className="w-full overflow-y-auto overflow-x-hidden flex flex-col flex-1"
+      className="w-full overflow-y-auto overflow-x-hidden flex flex-col flex-1 no-scrollbar"
     >
       <AnimatePresence>
         {messages.map((message, index) =>
