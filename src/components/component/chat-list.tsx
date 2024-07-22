@@ -140,7 +140,11 @@ function PreviousChat({
           typeof message.images === "undefined" ? (
             <ChatBubble {...message} key={index} />
           ) : (
-            <ChatImageBubble data={message.images!} alt={message.message} />
+            <ChatImageBubble
+              data={message.images!}
+              alt={message.message}
+              key={index}
+            />
           )
         )}
       </AnimatePresence>
