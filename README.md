@@ -110,10 +110,10 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Acknowledgements
 
-[Next.js](https://nextjs.org/)
-[shadcn-ui](https://ui.shadcn.com/)
-[Firebase](https://firebase.google.com/)
-[Gemini API](https://ai.google.dev/)
+- [Next.js](https://nextjs.org/)
+- [shadcn-ui](https://ui.shadcn.com/)
+- [Firebase](https://firebase.google.com/)
+- [Gemini API](https://ai.google.dev/)
 
 ---
 
